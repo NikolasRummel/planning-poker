@@ -1,22 +1,28 @@
 import './globals.css'
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import type {Metadata} from 'next'
+import React from "react";
+import Providers from "@/app/providers";
+import Footer from "@/components/footer";
 
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Planning-Poker',
-  description: 'planning poker web app',
+    title: 'Planning-Poker',
+    description: 'planning poker web app',
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
-  )
+export default function RootLayout({children}: { children: React.ReactNode }) {
+    return (
+        <html lang="en">
+        <body>
+        <Providers>
+            <main className="relative mt-8 max-w-7xl mx-auto min-h-screen">
+                {children}
+            </main>
+            <footer>
+                <Footer/>
+            </footer>
+        </Providers>
+        </body>
+        </html>
+    );
 }
