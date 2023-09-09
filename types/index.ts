@@ -6,9 +6,12 @@ export type Room = {
 }
 
 export type Guest = {
-    id: number,
     name: string,
     chosenCard: number,
     roomId: number
 }
 
+export type CreateRoomRequest = {
+    name: string,
+    guest: string
+}

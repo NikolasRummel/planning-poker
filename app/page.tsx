@@ -7,7 +7,6 @@ import {useDisclosure} from "@nextui-org/use-disclosure";
 import {Modal, ModalBody, ModalContent, ModalFooter, ModalHeader} from "@nextui-org/modal";
 import {PenSquareIcon, UsersIcon} from "lucide-react";
 
-
 export default function Home() {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
@@ -53,13 +52,33 @@ const CreateRoomModal = ({isOpen, onOpenChange}: CreateRoomModalProps) => {
 
     function createRoom(closeModal: () => void) {
         closeModal();
-        fetch("/api/rooms/create/")
+
+        const requestBody = {
+            name: "Cubid",
+            guest: "Nikolas"
+        };
+
+        fetch("/api/rooms/create/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(requestBody),
+        })
             .then(response => {
-                response.json().then(r => {
-                    console.log(r)
-                })
+                if (!response.ok) {
+                    throw new Error("Failed to create room");
+                }
+                return response.json();
             })
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error(error);
+            });
     }
+
 
     return (
         <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="top-center" backdrop={"blur"}>
