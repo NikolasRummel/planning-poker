@@ -5,7 +5,11 @@ import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button, NavbarMenu
 import Image from "next/image";
 import logo from "@/public/logo.png"
 
-export default function RoomNavbar() {
+
+interface NavbarProps {
+    roomId: number;
+}
+export default function RoomNavbar({roomId}:NavbarProps) {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
     return (
@@ -22,7 +26,7 @@ export default function RoomNavbar() {
             <NavbarContent justify="end">
                 <NavbarItem>
                     <Link color="foreground" href="#">
-                        RoomId: 123456
+                        RoomId: {roomId}
                     </Link>
                 </NavbarItem>
                 <NavbarItem>
