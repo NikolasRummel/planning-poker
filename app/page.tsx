@@ -9,6 +9,7 @@ import {PenSquareIcon, UsersIcon} from "lucide-react";
 import {Room} from "@/types";
 import {saveLocalGuestId} from "@/store/clientstore";
 import {useState} from "react";
+import {useRouter} from "next/navigation";
 
 export default function Home() {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
@@ -56,6 +57,8 @@ const CreateRoomModal = ({isOpen, onOpenChange}: CreateRoomModalProps) => {
     const [roomName, setRoomName] = useState("");
     const [guestName, setGuestName] = useState("");
 
+    const router = useRouter();
+
     function createRoom(closeModal: () => void) {
         closeModal();
 
@@ -89,9 +92,10 @@ const CreateRoomModal = ({isOpen, onOpenChange}: CreateRoomModalProps) => {
         console.log("Room", room);
         const localGuest = room.guests.at(0);
 
-        if(!localGuest) throw new Error("INTERNAL ERROR! GUEST NOT AVAILABLE!")
+        if (!localGuest) throw new Error("INTERNAL ERROR! GUEST NOT AVAILABLE!")
 
         saveLocalGuestId(localGuest.id);
+        router.push("/rooms/" + room.id)
     }
 
     return (

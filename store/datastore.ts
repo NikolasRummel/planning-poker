@@ -46,6 +46,15 @@ export function addGuestToRoom(roomId: number, name: string): Guest | null {
 }
 
 
+export function getRoomById(roomId: number): Room | undefined {
+    console.log("getRoomById1", roomId)
+    rooms.forEach((value, key) => {
+        console.log(key, value);
+    })
+    console.log("getRoomById2", roomId)
+    return rooms.get(roomId);
+}
+
 // returns random 5-digit id
 function createRoomId() {
     return Math.floor(Math.random() * 90000) + 10000;
