@@ -1,4 +1,4 @@
-// In-storage data storage
+// sql storage
 import {prisma} from "@/lib/prisma";
 
 export async function createRoom(roomName: string, guestName: string) {
