@@ -6,6 +6,8 @@ import {title, subtitle, titleWrapper} from "@/components/primitives";
 import {useDisclosure} from "@nextui-org/use-disclosure";
 import {Modal, ModalBody, ModalContent, ModalFooter, ModalHeader} from "@nextui-org/modal";
 import {PenSquareIcon, UsersIcon} from "lucide-react";
+import {Room} from "@/types";
+import {saveLocalGuestId} from "@/store/clientstore";
 
 export default function Home() {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
@@ -49,7 +51,6 @@ interface CreateRoomModalProps {
 }
 
 const CreateRoomModal = ({isOpen, onOpenChange}: CreateRoomModalProps) => {
-
     function createRoom(closeModal: () => void) {
         closeModal();
 
@@ -67,21 +68,29 @@ const CreateRoomModal = ({isOpen, onOpenChange}: CreateRoomModalProps) => {
         })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error("Failed to create room");
+                    throw new Error("Failed to create room!");
                 }
                 return response.json();
             })
             .then(data => {
-                console.log(data);
+                startRoom(data);
             })
             .catch(error => {
                 console.error(error);
             });
     }
 
+    function startRoom(room: Room) {
+        console.log("Room", room);
+        const localGuest = room.guests.at(0);
+
+        if(!localGuest) throw new Error("INTERNAL ERROR! GUEST NOT AVAILABLE!")
+
+        saveLocalGuestId(localGuest.id);
+    }
 
     return (
-        <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="top-center" backdrop={"blur"}>
+        <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center" backdrop={"blur"}>
             <ModalContent>
                 {(onClose) => (
                     <>

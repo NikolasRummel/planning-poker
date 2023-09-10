@@ -1,5 +1,6 @@
 // In-memory data store
 import {Guest, Room} from "@/types";
+import {randomUUID} from "crypto";
 
 export const rooms: Map<number, Room> = new Map();
 
@@ -34,6 +35,7 @@ export function addGuestToRoom(roomId: number, name: string): Guest | null {
     }
 
     const guest: Guest = {
+        id: randomUUID(),
         name,
         roomId,
         chosenCard: -1,

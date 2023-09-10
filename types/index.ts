@@ -6,6 +6,7 @@ export type Room = {
 }
 
 export type Guest = {
+    id: string,
     name: string,
     chosenCard: number,
     roomId: number
