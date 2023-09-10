@@ -8,6 +8,7 @@ import {Modal, ModalBody, ModalContent, ModalFooter, ModalHeader} from "@nextui-
 import {PenSquareIcon, UsersIcon} from "lucide-react";
 import {Room} from "@/types";
 import {saveLocalGuestId} from "@/store/clientstore";
+import {useState} from "react";
 
 export default function Home() {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
@@ -51,12 +52,16 @@ interface CreateRoomModalProps {
 }
 
 const CreateRoomModal = ({isOpen, onOpenChange}: CreateRoomModalProps) => {
+
+    const [roomName, setRoomName] = useState("");
+    const [guestName, setGuestName] = useState("");
+
     function createRoom(closeModal: () => void) {
         closeModal();
 
         const requestBody = {
-            name: "Cubid",
-            guest: "Nikolas"
+            name: roomName,
+            guest: guestName
         };
 
         fetch("/api/rooms/create/", {
@@ -105,6 +110,8 @@ const CreateRoomModal = ({isOpen, onOpenChange}: CreateRoomModalProps) => {
                                 label="Roomname"
                                 placeholder="Scrum-Refinement"
                                 variant="bordered"
+                                required
+                                onChange={event => setRoomName(event.target.value)}
                             />
                             <Input
                                 endContent={
@@ -114,6 +121,8 @@ const CreateRoomModal = ({isOpen, onOpenChange}: CreateRoomModalProps) => {
                                 label="Your Name"
                                 placeholder="Max Mustermann"
                                 variant="bordered"
+                                required
+                                onChange={event => setGuestName(event.target.value)}
                             />
                         </ModalBody>
                         <ModalFooter>
