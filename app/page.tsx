@@ -6,8 +6,7 @@ import {title, subtitle, titleWrapper} from "@/components/primitives";
 import {useDisclosure} from "@nextui-org/use-disclosure";
 import {Modal, ModalBody, ModalContent, ModalFooter, ModalHeader} from "@nextui-org/modal";
 import {PenSquareIcon, UsersIcon} from "lucide-react";
-import {Room} from "@/types";
-import {saveLocalGuestId} from "@/store/clientstore";
+import {saveLocalGuestId} from "@/lib/storage/clientstore";
 import {useState} from "react";
 import {useRouter} from "next/navigation";
 
@@ -81,21 +80,13 @@ const CreateRoomModal = ({isOpen, onOpenChange}: CreateRoomModalProps) => {
                 return response.json();
             })
             .then(data => {
-                startRoom(data);
+                saveLocalGuestId(data.guestId);
+                router.push("/rooms/" + data.roomId);
+                console.log(JSON.stringify(data))
             })
             .catch(error => {
                 console.error(error);
             });
-    }
-
-    function startRoom(room: Room) {
-        console.log("Room", room);
-        const localGuest = room.guests.at(0);
-
-        if (!localGuest) throw new Error("INTERNAL ERROR! GUEST NOT AVAILABLE!")
-
-        saveLocalGuestId(localGuest.id);
-        router.push("/rooms/" + room.id)
     }
 
     return (
