@@ -14,7 +14,7 @@ export default function Home() {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
     return (
-        <section className="flex flex-col justify-center mt-32">
+        <section className="flex flex-col  mt-80 min-h-screen">
             <div className="items-center">
                 <div className={titleWrapper()}>
                     <h1 className={title({size: "lg"})}>Effort Estimation</h1>

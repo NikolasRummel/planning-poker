@@ -15,7 +15,7 @@ export default function RootLayout({children}: { children: React.ReactNode }) {
         <html lang="en">
         <body>
         <Providers>
-            <main className="relative mt-8 max-w-7xl mx-auto min-h-screen">
+            <main className="relative mt-8 max-w-7xl mx-auto">
                 {children}
             </main>
             <footer>
