@@ -9,9 +9,11 @@ import {PenSquareIcon, UsersIcon} from "lucide-react";
 import {saveLocalGuestId} from "@/lib/storage/clientstore";
 import {useState} from "react";
 import {useRouter} from "next/navigation";
+import Link from "next/link";
 
 export default function Home() {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
+    const [room, setRoom] = useState("");
 
     return (
         <section className="flex flex-col  mt-80 min-h-screen">
@@ -36,8 +38,17 @@ export default function Home() {
                 </Button>
 
                 <div className="flex space-x-4">
-                    <Input size="sm" label="room pin"/>
-                    <Button color={"primary"} size="lg">Join</Button>
+                    <Input size="sm" label="room pin" datatype={"number"}
+                           onChange={event => setRoom(event.target.value)}
+                           onKeyPress={(event) => {
+                               if (!/[0-9]/.test(event.key)) {
+                                   event.preventDefault();
+                               }
+                           }}
+                    />
+                    <Link href={`/rooms/${room}`}>
+                        <Button color={"primary"} size="lg">Join</Button>
+                    </Link>
                 </div>
             </div>
 
