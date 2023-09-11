@@ -3,5 +3,5 @@ export function saveLocalGuestId(guestId: string) {
 }
 
 export function getLocalGuestId() {
-    sessionStorage.getItem("guestId");
+    return sessionStorage.getItem("guestId") || null;
 }

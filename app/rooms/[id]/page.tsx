@@ -2,6 +2,7 @@ import React from 'react';
 import RoomNavbar from "@/components/room/navbar";
 import {prisma} from "@/lib/prisma";
 import CardDeck from "@/components/room/card-deck";
+import {GuestNameModal} from "@/components/guest-name-modal";
 
 export default async function Page({params}: { params: { id: number } }) {
     const roomId = parseInt(String(params.id), 10);
@@ -30,6 +31,7 @@ export default async function Page({params}: { params: { id: number } }) {
                 <RoomNavbar roomId={roomId}/>
                 <br/>
                 <span>{JSON.stringify(room)}</span>
+                <GuestNameModal isOpen={true} roomId={roomId} />
                 <CardDeck/>
             </div>
         </>
