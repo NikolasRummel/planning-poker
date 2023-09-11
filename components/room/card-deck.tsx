@@ -27,11 +27,11 @@ const CardDeck = () => {
                 <h2>choose your card</h2>
             </div>
             <div className="flex justify-center">
-                <div className="flex space-x-4">
+                <div className="md:flex md:space-x-4">
                     {cards.map((card) => (
                         <div
                             key={card.value}
-                            className={`w-32 h-44 text-white rounded-lg p-4 cursor-pointer transform transition-transform ${card.color} flex justify-center items-center ${
+                            className={`w-32 h-44 text-white rounded-lg p-4 cursor-pointer transform transition-transform ${card.color} flex justify-center items-center shadow-2xl ${
                                 selectedCard === card.value
                                     ? 'scale-105 -translate-y-8 border-2 border-white'
                                     : 'hover:scale-105 hover:-translate-y-2'

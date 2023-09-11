@@ -1,8 +1,8 @@
 import React from 'react';
 import RoomNavbar from "@/components/room/navbar";
-import {prisma} from "@/lib/prisma";
 import CardDeck from "@/components/room/card-deck";
-import {GuestNameModal} from "@/components/guest-name-modal";
+import {GuestNameModal} from "@/components/room/guest-name-modal";
+import VotingResult from "@/components/room/voting-result";
 
 export default async function Page({params}: { params: { id: number } }) {
     const roomId = parseInt(String(params.id), 10);
@@ -15,22 +15,12 @@ export default async function Page({params}: { params: { id: number } }) {
         );
     }
 
-    const room = await prisma.room.findFirst({
-        where: {
-            id: roomId
-        },
-        include: {
-            Guest: true
-        }
-    })
-    console.log(room)
-
     return (
         <>
             <div className={"min-h-screen flex flex-col"}>
                 <RoomNavbar roomId={roomId}/>
                 <br/>
-                <span>{JSON.stringify(room)}</span>
+                <VotingResult roomId={roomId} />
                 <GuestNameModal roomId={roomId} />
                 <CardDeck/>
             </div>
