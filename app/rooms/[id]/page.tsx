@@ -31,7 +31,7 @@ export default async function Page({params}: { params: { id: number } }) {
                 <RoomNavbar roomId={roomId}/>
                 <br/>
                 <span>{JSON.stringify(room)}</span>
-                <GuestNameModal isOpen={true} roomId={roomId} />
+                <GuestNameModal roomId={roomId} />
                 <CardDeck/>
             </div>
         </>
