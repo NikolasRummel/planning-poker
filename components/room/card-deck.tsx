@@ -1,6 +1,8 @@
 "use client";
 
 import React, {useState} from 'react';
+import {getLocalGuestId} from "@/lib/storage/clientstore";
+import {SelectCardRequest} from "@/types";
 
 const CardDeck = () => {
     const cards = [
@@ -15,10 +17,40 @@ const CardDeck = () => {
         {value: 34, color: 'bg-teal-500'},
     ];
 
-    const [selectedCard, setSelectedCard] = useState<number | null>(-1);
+    const [selectedCard, setSelectedCard] = useState<number>(-1);
 
     const handleCardClick = (cardValue: number) => {
         setSelectedCard(cardValue);
+
+        console.log("CardVALUZE: " + cardValue)
+
+        if(getLocalGuestId() == "-1") throw new Error("Local guest id not found")
+
+        const requestBody: SelectCardRequest = {
+            guestId: parseInt(getLocalGuestId()),
+            selectCard: cardValue
+        }
+
+        fetch("/api/guests/cards", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(requestBody),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Failed to save selected card!");
+                }
+                return response.json();
+            })
+            .then(guest => {
+                console.log(JSON.stringify(guest))
+
+            })
+            .catch(error => {
+                console.error(error);
+            });
     };
 
     return (

@@ -16,7 +16,7 @@ export default function Home() {
     const [room, setRoom] = useState("");
 
     return (
-        <section className="flex flex-col  mt-80 min-h-screen">
+        <section className="flex flex-col mt-80 min-h-screen">
             <div className="items-center">
                 <div className={titleWrapper()}>
                     <h1 className={title({size: "lg"})}>Effort Estimation</h1>

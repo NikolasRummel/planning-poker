@@ -5,9 +5,10 @@ const VotingResult = async ({roomId}: { roomId: number }) => {
 
     const guests = await prisma.guest.findMany({
         where: {
-            id: roomId
+            roomId: roomId
         },
     })
+
 
     return (
         <div className="flex justify-center">
@@ -18,7 +19,7 @@ const VotingResult = async ({roomId}: { roomId: number }) => {
                         className="p-12 rounded-2xl text-center shadow-lg border border-gray-200"
                     >
                         <p className="text-5xl font-semibold mb-4">{guest.name}</p>
-                        <p className="text-3xl font-semibold text-gray-900">{guest.chosenCard}</p>
+                        <p className="text-3xl font-semibold text-gray-900">{guest.chosenCard == -1 ? "not voted yet" : guest.chosenCard}</p>
                     </div>
                 ))}
             </div>

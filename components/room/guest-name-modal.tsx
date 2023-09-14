@@ -18,7 +18,12 @@ export const GuestNameModal = ({roomId}: { roomId: number }) => {
         // Check if guestId is in storage
         const guestId = getLocalGuestId();
 
-        if (guestId) return; // user already "authenticated"
+        console.log(guestId)
+        console.log(guestId)
+        console.log(guestId)
+        console.log(guestId)
+
+        if (guestId != "-1") return; // user already "authenticated"
 
         setOpen(true);
 
@@ -42,13 +47,13 @@ export const GuestNameModal = ({roomId}: { roomId: number }) => {
         })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error("Failed to create room!");
+                    throw new Error("Failed to add guest!");
                 }
                 return response.json();
             })
-            .then(guest => {
-                saveLocalGuestId(guest.guestId);
-                console.log(JSON.stringify(guest))
+            .then(data => {
+                saveLocalGuestId(data.guest.id);
+                console.log(JSON.stringify(data))
 
             })
             .catch(error => {
