@@ -1,9 +1,9 @@
 import React from 'react';
 import RoomNavbar from "@/components/room/navbar";
-import CardDeck from "@/components/room/card-deck";
 import {GuestNameModal} from "@/components/room/guest-name-modal";
 import VotingResult from "@/components/room/voting-result";
 import RevealButton from "@/components/room/reveal-button";
+import {CardDeck} from "@/components/room/card-deck";
 
 export default async function Page({params}: { params: { id: number } }) {
     const roomId = parseInt(String(params.id), 10);
@@ -23,7 +23,7 @@ export default async function Page({params}: { params: { id: number } }) {
                 <RevealButton/>
                 <VotingResult roomId={roomId} />
                 <GuestNameModal roomId={roomId} />
-                <CardDeck/>
+                <CardDeck roomId={roomId} />
             </div>
         </>
     );

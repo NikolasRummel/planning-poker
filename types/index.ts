@@ -10,5 +10,6 @@ export type AddGuestRequest = {
 
 export type SelectCardRequest = {
     guestId: number,
-    selectCard: number
+    selectCard: number,
+    roomId: number
 }

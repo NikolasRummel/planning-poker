@@ -4,7 +4,7 @@ import React, {useState} from 'react';
 import {getLocalGuestId} from "@/lib/storage/clientstore";
 import {SelectCardRequest} from "@/types";
 
-const CardDeck = () => {
+export const CardDeck = ({roomId}: { roomId: number }) => {
     const cards = [
         {value: 0, color: 'bg-red-500'},
         {value: 1, color: 'bg-blue-500'},
@@ -28,7 +28,8 @@ const CardDeck = () => {
 
         const requestBody: SelectCardRequest = {
             guestId: parseInt(getLocalGuestId()),
-            selectCard: cardValue
+            selectCard: cardValue,
+            roomId: roomId
         }
 
         fetch("/api/guests/cards", {
@@ -78,6 +79,3 @@ const CardDeck = () => {
         </div>
     );
 };
-
-
-export default CardDeck;
